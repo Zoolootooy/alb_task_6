@@ -2,21 +2,23 @@ version: '3'
 services:
   web:
     image: nginx
+    container_name: web
     volumes:
-    - ./web/api.conf:/etc/nginx/conf.d/default.conf
+    - ./web/app.conf:/etc/nginx/conf.d/default.conf
     environment:
       XDEBUG_OUTPUT_DIR: "/tmp/xdebug"
     ports:
     - "8080:80"
     depends_on:
-    - api
+    - app
 
 
-  api:
+  app:
     build:
-      context: ./api
+      context: app
+    container_name: app
     environment:
-      - PHP_IDE_CONFIG=serverName=ololo
+      - PHP_IDE_CONFIG=serverName=myserver
     volumes:
     - ./public:/var/www/public
-    - ./api/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+    - ./app/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
