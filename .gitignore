@@ -1,0 +1,4 @@
+/.idea/
+/public/
+!/public/index.php
+/xdebug.txt
